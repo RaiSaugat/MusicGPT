@@ -2,10 +2,13 @@
 
 :root {
   --background: #0a0c0d;
-  --foreground: #171717;
+  --foreground: white;
   --sidebar-background: #121415;
   --gradient: 233.67deg, rgba(48, 7, 255, 0.29) -2.43%,
     rgba(209, 40, 150, 0.271346) 58.32%, rgba(255, 86, 35, 0.25) 98.83%;
+  --border-gradient: 314.53deg, #c800ff 17.23%, #ff2c9b 38.51%, #ff7b00 66.07%,
+    #ff8504 78.98%, #ffd363 87%;
+  --text-gradient: 90deg, #5d6165 71.61%, rgba(128, 129, 130, 0) 98.8%;
 }
 
 @theme inline {
@@ -19,5 +22,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter);
 }

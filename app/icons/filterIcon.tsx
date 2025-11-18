@@ -1,21 +1,21 @@
-function PlusIcon() {
+function FilterIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
+      width="20"
+      height="20"
       fill="none"
       viewBox="0 0 20 20"
     >
       <path
-        stroke="#fff"
+        stroke="#BFC2C8"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1.667"
-        d="M10 4.167v11.667M4.167 10h11.666"
+        d="M2.5 6.667h10m0 0a2.5 2.5 0 1 0 5 0 2.5 2.5 0 0 0-5 0m-5 6.666h10m-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"
       />
     </svg>
   );
 }
 
-export default PlusIcon;
+export default FilterIcon;

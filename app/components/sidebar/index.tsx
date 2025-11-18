@@ -56,7 +56,7 @@ function Sidebar() {
   ];
 
   return (
-    <div className="w-[200px] h-screen p-4 bg-sidebar-bg text-white flex flex-col gap-8">
+    <div className="w-[200px] fixed left-0 top-0 h-screen p-4 bg-sidebar-bg text-white flex flex-col gap-8">
       <h1 className="flex items-center gap-1.5">
         <Image
           src="/logo.png"
@@ -97,7 +97,7 @@ function Sidebar() {
             key={item.title + index}
             className="py-[8.5px] rounded-full px-4 cursor-pointer font-medium text-sm text-white flex items-center gap-2 hover:bg-[#2D2F30] transition-all duration-100"
           >
-            {item.icon}
+            <span className="text-[20px]">{item.icon}</span>
             {item.title}
           </div>
         ))}
