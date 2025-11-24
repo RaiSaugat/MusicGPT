@@ -1,3 +1,7 @@
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
 import CmdIcon from '@/app/icons/cmdIcon';
@@ -16,16 +20,19 @@ function Sidebar() {
     {
       icon: <HomeIcon />,
       title: 'Home',
+      href: '/',
     },
 
     {
       icon: <CreateIcon />,
       title: 'Create',
+      href: '/create',
     },
 
     {
       icon: <CompassIcon />,
       title: 'Explore',
+      href: '/explore',
     },
   ];
 
@@ -33,16 +40,19 @@ function Sidebar() {
     {
       icon: <ProfileIcon />,
       title: 'Profile',
+      href: '/profile',
     },
 
     {
       icon: <HeartIcon />,
       title: 'Liked',
+      href: '/liked',
     },
 
     {
       icon: <PlusIcon />,
       title: 'New playlist',
+      href: '/playlist',
     },
   ];
 
@@ -54,6 +64,8 @@ function Sidebar() {
     'Terms',
     'Privacy',
   ];
+
+  const pathname = usePathname();
 
   return (
     <div className="w-[200px] fixed left-0 top-0 h-screen p-4 bg-sidebar-bg text-white flex flex-col gap-8">
@@ -78,13 +90,16 @@ function Sidebar() {
 
       <div className="flex flex-col gap-[3px] w-max">
         {Menu.map((item, index) => (
-          <div
+          <Link
             key={item.title + index}
-            className="py-[8.5px] rounded-full px-4 cursor-pointer font-medium text-sm text-white flex items-center gap-2 hover:bg-[#2D2F30] transition-all duration-100"
+            href={item.href}
+            className={`py-[8.5px] rounded-full px-4 cursor-pointer font-medium text-sm text-white flex items-center gap-2 hover:bg-[#2D2F30] transition-all duration-100 ${
+              pathname === item.href ? 'bg-[#2D2F30]' : ''
+            }`}
           >
             {item.icon}
             {item.title}
-          </div>
+          </Link>
         ))}
       </div>
 

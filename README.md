@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MusicGPT (lalas)
 
-## Getting Started
+This repository contains the frontend for MusicGPT — a Next.js app using Tailwind CSS, `motion` (Motion.dev) animations, `socket.io` for realtime features, and `zustand` for lightweight state management.
 
-First, run the development server:
+**Quick start**
+
+- Install dependencies: `pnpm install`
+- Run the app locally (development server): `pnpm run dev`
+- Open `http://localhost:3000` in your browser.
+
+**Note:** The `dev` script runs `node server.ts` to start a custom server (used to attach `socket.io`).
+
+**Chosen Tech Stack**
+
+- **Framework:** `Next.js` (App Router) — folders under `app/` use the newest Next features.
+- **UI / Styling:** `Tailwind CSS` for utility-first styling (`tailwindcss` v4 in devDependencies).
+- **Animations:** `motion` (Motion.dev) for JS-based animations; Tailwind's built-in transition utilities for simple hover/interaction transitions.
+- **Realtime:** `socket.io` + `socket.io-client` for realtime communication between client and server (`server.ts`).
+- **State management:** `zustand` for global/local state in `store.ts`.
+
+**Architecture Rationale**
+
+- **Next.js App Router:** The application uses the App Router (`app/`) to take advantage of server components, layouts, and nested routing which simplifies data fetching and page composition.
+- **Custom server (`server.ts`):** A small Node entrypoint is used to attach `socket.io` to the Next server.
+- **Component-driven UI:** UI is split into small components under `app/components/` (e.g., `profile`, `generationList`, `sidebar`) so animations and layout are local to components.
+- **Motion.dev + Tailwind:** Motion.dev handles complex timeline and keyframe-like animations (used for gradient backgrounds and notification pulses), while Tailwind covers standard hover/transition states. This hybrid keeps the code simple while enabling rich interactions.
+- **Zustand store:** Chosen for lightweight, hook-friendly state without the overhead of larger libraries.
+
+**How to Build & Run**
+
+- Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Run in development (custom server with sockets):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Build for production:
 
-## Learn More
+```bash
+pnpm run build
+pnpm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+**Project Structure (high level)**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/` — Next.js app routes, pages and UI components.
+  - `components/` — UI components (e.g., `sidebar`, `profile`, `search`, `generationList`).
+  - `sockets/` — client socket helpers.
+  - `api/` — server route handlers (e.g., `profile/route.ts`, `search/route.ts`).
+- `server.ts` — Custom Node server used to attach `socket.io`.
+- `store.ts` — `zustand` store for application state.

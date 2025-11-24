@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import './profile.css';
 
@@ -11,8 +11,33 @@ import SettingIcon from '@/app/icons/settingIcon';
 import NotificationItem from './notificationItem';
 import InvalidPrompt from '../invalidPrompt';
 import ChevronRightIcon from '@/app/icons/chevronRightIcon';
+import { useQueryStore } from '@/app/provider';
+import { socket } from '@/app/socket';
 
 function ProfileDropdown() {
+  const { queryList, updateQuery } = useQueryStore((state) => state);
+
+  const latestQueryId = useRef(queryList[queryList.length - 1]?.id);
+
+  useEffect(() => {
+    latestQueryId.current = queryList[queryList.length - 1]?.id;
+  }, [queryList]);
+
+  useEffect(() => {
+    const handler = (data: { id: string; progress: number }) => {
+      updateQuery({
+        id: data.id,
+        progress: data.progress,
+      });
+    };
+
+    socket.on('generating_music', handler);
+
+    return () => {
+      socket.off('generating_music', handler);
+    };
+  }, [updateQuery]);
+
   return (
     <div className="profile__card w-[400px] absolute top-[calc(100%+12px)] right-0">
       <div className="rounded-[20px] w-full max-h-[639px] px-4 py-5 text-white border border-solid border-[#1D2125] overflow-y-auto relative pb-20 bg-[#16191C]">
@@ -67,19 +92,19 @@ function ProfileDropdown() {
           </button>
         </div>
 
-        <div className="flex flex-col gap-1">
-          <NotificationItem
-            version="v1"
-            percent={0}
-            step="Generating"
-            title="Create a funky house song with female vocals"
-          />
-          <NotificationItem
-            version="v2"
-            percent={50}
-            step="Starting AI audio engine"
-            title="Create a funky house song with female vocals"
-          />
+        <div className="flex flex-col gap-1 mt-1">
+          {queryList.map((data, index) => {
+            return (
+              <NotificationItem
+                version="v1"
+                percent={data.progress}
+                step="Generating"
+                title={data.query}
+                key={index}
+                id={data.id}
+              />
+            );
+          })}
 
           <div className="bg-[#EE0D3714] p-4 rounded-xl flex flex-col gap-1">
             <div className="flex items-center gap-1.5">
@@ -95,12 +120,12 @@ function ProfileDropdown() {
 
           <InvalidPrompt />
 
-          <NotificationItem
+          {/* <NotificationItem
             version="v1"
             percent={50}
             step="Out in the street"
             title="Create a funky house song with female vocals"
-          />
+          /> */}
         </div>
       </div>
     </div>
@@ -109,11 +134,23 @@ function ProfileDropdown() {
 
 function Profile() {
   const [showDropdown, setShowDropdown] = useState(false);
+
+  const { isProfileDrawerOpen, setIsProfileDrawerOpen } = useQueryStore(
+    (state) => state
+  );
+
+  useEffect(() => {
+    setShowDropdown(isProfileDrawerOpen);
+  }, [isProfileDrawerOpen]);
+
   return (
-    <div className="relative">
+    <div className="relative z-20">
       <div
         className="ml-auto w-10 h-10 rounded-full flex items-center justify-center bg-linear-(--border-gradient) p-0.5 relative cursor-pointer"
-        onClick={() => setShowDropdown((s) => !s)}
+        onClick={() => {
+          setShowDropdown((s) => !s);
+          setIsProfileDrawerOpen(!showDropdown);
+        }}
       >
         <div className="rounded-full bg-black w-full h-full flex items-center justify-center">
           <p className="text-xl font-normal">J</p>
@@ -124,7 +161,9 @@ function Profile() {
         </div>
       </div>
 
-      {showDropdown && <ProfileDropdown />}
+      <div className={showDropdown ? 'block' : 'hidden'}>
+        <ProfileDropdown />
+      </div>
     </div>
   );
 }

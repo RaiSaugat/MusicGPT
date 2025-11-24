@@ -11,3 +11,11 @@
     rgba(0, 0, 0, 1) 100%
   );
 }
+
+.profile__card > div {
+  scrollbar-width: none;
+}
+
+.profile__card > div::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
