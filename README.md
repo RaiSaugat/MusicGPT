@@ -1,4 +1,4 @@
-# MusicGPT (lalas)
+# MusicGPT
 
 This repository contains the frontend for MusicGPT — a Next.js app using Tailwind CSS, `motion` (Motion.dev) animations, `socket.io` for realtime features, and `zustand` for lightweight state management.
 
