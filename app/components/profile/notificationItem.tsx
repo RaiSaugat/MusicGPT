@@ -9,18 +9,14 @@ function NotificationItem({
   percent,
   title,
   step,
-  id,
 }: {
   version: string;
   percent: number;
   title: string;
   step: string;
-  id: string;
 }) {
   const [motionRef, animate] = useAnimate();
   const percentRef = useRef<HTMLDivElement>(null);
-  const pulseRef = useRef<HTMLDivElement>(null);
-  const greenDotRef = useRef<HTMLDivElement>(null);
 
   const gradients = [
     'radial-gradient(227.54% 59.42% at 42.03% 86.23%, #FF6200 0%, rgba(170, 0, 255, 0.5) 30.42%, rgba(0, 0, 0, 0) 100%), #000',
@@ -37,7 +33,7 @@ function NotificationItem({
 
       const gradientAnimation = animate(
         backgroundGradientElement,
-        { background: gradients, opacity: [1, 1, 1, 1, 1, 0] },
+        { background: gradients, opacity: [1, 1, 1, 1, 1, 1, 0] },
         {
           duration: 10.8,
           ease: 'linear',
@@ -49,46 +45,6 @@ function NotificationItem({
       };
     }
   }, []);
-
-  // useEffect(() => {
-  //   if (percent === 100) {
-  //     const pulseElement = pulseRef.current;
-  //     // const greenDotElement = greenDotRef.current;
-
-  //     if (!pulseElement) return;
-  //     // if (!greenDotElement) return;
-
-  //     const pulseAnimation = animate(
-  //       pulseElement,
-  //       {
-  //         transform: ['scale(1)', 'scale(1.5)'],
-  //         opacity: [1, 0],
-  //       },
-  //       {
-  //         duration: 0,
-  //         repeat: Infinity,
-  //         ease: 'linear',
-  //       }
-  //     );
-
-  //     // const scaleAnimation = animate(
-  //     //   greenDotElement,
-  //     //   {
-  //     //     transform: ['scale(0)', 'scale(1.1)', 'scale(1)'],
-  //     //     opacity: [1],
-  //     //   },
-  //     //   {
-  //     //     duration: 8,
-  //     //     ease: 'easeInOut',
-  //     //   }
-  //     // );
-
-  //     return () => {
-  //       pulseAnimation.cancel();
-  //       // scaleAnimation.cancel();
-  //     };
-  //   }
-  // }, [percent]);
 
   return (
     <div className="flex items-center gap-3 p-2 hover:bg-[#222528] rounded-3xl cursor-pointer">

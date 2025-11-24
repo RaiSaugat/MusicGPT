@@ -101,7 +101,6 @@ function ProfileDropdown() {
                 step="Generating"
                 title={data.query}
                 key={index}
-                id={data.id}
               />
             );
           })}

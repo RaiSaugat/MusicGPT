@@ -1,6 +1,7 @@
 'use client';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, useAnimate, motion } from 'motion/react';
+import Image from 'next/image';
 
 import ArrowRight from '@/app/icons/arrowRight';
 import ChevronDownIcon from '@/app/icons/chevronDownIcon';
@@ -8,7 +9,6 @@ import ClipIcon from '@/app/icons/clipIcon';
 import FilterIcon from '@/app/icons/filterIcon';
 import PlusIcon from '@/app/icons/plusIcon';
 import WaveIcon from '@/app/icons/waveIcon';
-import Image from 'next/image';
 import { socket } from '@/app/socket';
 import { useQueryStore } from '@/app/provider';
 

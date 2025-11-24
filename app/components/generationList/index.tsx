@@ -14,9 +14,7 @@ function GenerationList() {
 
       <div className="flex flex-col gap-1">
         {queryList.map((list, index) => {
-          return (
-            <Item title={list.query} description={''} image={''} key={index} />
-          );
+          return <Item title={list.query} description={''} key={index} />;
         })}
       </div>
     </div>

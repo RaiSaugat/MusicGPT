@@ -1,22 +1,15 @@
+import Image from 'next/image';
+
 import DislikeIcon from '@/app/icons/dislikeIcon';
 import DotsIcon from '@/app/icons/dotsIcon';
 import LikeIcon from '@/app/icons/likeIcon';
 import PlayIcon from '@/app/icons/playIcon';
-import Image from 'next/image';
 
-function Item({
-  title,
-  description,
-  image,
-}: {
-  title: string;
-  description: string;
-  image: string;
-}) {
+function Item({ title, description }: { title: string; description: string }) {
   return (
     <div className="flex items-center gap-3 p-2 hover:bg-[#222528] rounded-3xl cursor-pointer group relative transition-all duration-500 ease-in-out">
       <div className="min-w-[60px] min-h-[60px] rounded-2xl gap-2.5 grid place-items-center relative overflow-hidden">
-        <Image src="/pic.png" alt="Item" fill={true} />
+        <Image src={'/pic.png'} alt="Item" fill={true} />
         <span className="z-10 relative opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-600 ease-in-out">
           <PlayIcon />
         </span>
